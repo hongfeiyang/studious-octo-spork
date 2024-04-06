@@ -25,9 +25,11 @@ class _PersonDetailsPageState extends State<PersonDetailsPage> {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    if (widget.personId == null) {
-      Navigator.of(context).pop();
-    }
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (person == null) {
+        Navigator.of(context).pop();
+      }
+    });
   }
 
   @override

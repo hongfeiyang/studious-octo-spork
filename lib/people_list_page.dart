@@ -158,13 +158,22 @@ class PersonItemWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListTile(
-      title: Text(fullName),
-      subtitle: Text(responsibility),
+    return GestureDetector(
+      child: Row(
+        children: [
+          Text(fullName),
+          Text(responsibility),
+        ],
+      ),
       onTap: () {
-        Navigator.push(context, MaterialPageRoute(builder: (context) {
-          return PersonDetailsPage(personId: id);
-        }));
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) {
+              return PersonDetailsPage(personId: id);
+            },
+          ),
+        );
       },
     );
   }
