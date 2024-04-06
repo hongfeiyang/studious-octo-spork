@@ -1,8 +1,6 @@
 import 'package:employees_catalogue/data/component.dart';
 import 'package:employees_catalogue/data/person.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
-import 'package:employees_catalogue/data/extensions.dart';
 
 class PersonDetailsPage extends StatefulWidget {
   final int? personId;
@@ -25,9 +23,32 @@ class _PersonDetailsPageState extends State<PersonDetailsPage> {
   }
 
   @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    if (widget.personId == null) {
+      Navigator.of(context).pop();
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(title: Text('Person details'), leading: CloseButton()),
-        body: Container()); // TODO
+      appBar: AppBar(title: Text('Person details'), leading: CloseButton()),
+      body: person != null
+          ? Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text('Name: ${person!.fullName}'),
+                  Text('Responsibility: ${person!.responsibility}'),
+                  Text('Email: ${person!.email}'),
+                  Text('Phone: ${person!.phone}'),
+                  Text('Room: ${person!.room}'),
+                ],
+              ),
+            )
+          : Center(child: CircularProgressIndicator()),
+    );
   }
 }
